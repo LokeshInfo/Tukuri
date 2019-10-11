@@ -147,7 +147,7 @@ public class Delivery_fragment extends Fragment implements View.OnClickListener 
 
 
         db_cart = new DatabaseHandler(getActivity());
-        tv_total.setText("" + db_cart.getTotalAmount());
+        tv_total.setText("" + db_cart.gettTotalAmount());
         tv_item.setText("" + db_cart.getCartCount());
 
         final_amount = getArguments().getString("famount");
@@ -432,15 +432,15 @@ public class Delivery_fragment extends Fragment implements View.OnClickListener 
                     //deli_charges = intent.getStringExtra("charge");
                     //Toast.makeText(getActivity(), deli_charges, Toast.LENGTH_SHORT).show();
                     double amt = Double.parseDouble(final_amount);
-                    double ttotal = Double.parseDouble(db_cart.getTotalAmount());
+                    double ttotal = db_cart.gettTotalAmount();
                     if (ttotal >= amt) {
                         deli_charges = "" + 0;
                     }
 
                   // int total = Double.parseDouble(db_cart.getTotalAmount()) + Integer.parseInt(deli_charges);
-                   Float total = Float.parseFloat(db_cart.getTotalAmount()) + Integer.parseInt(deli_charges);
+                   Double total = db_cart.gettTotalAmount() + Integer.parseInt(deli_charges);
 
-                    tv_total.setText("" + db_cart.getTotalAmount() + " + " + deli_charges + " = " +total);
+                    tv_total.setText("" + db_cart.gettTotalAmount() + " + " + deli_charges + " = " +total);
                 }
             }
         };

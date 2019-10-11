@@ -84,7 +84,7 @@ public class  NewLogin extends AppCompatActivity {
 
             try {
 
-                URL url = new URL("http://axomiyagohona.com/grocery-store/api/userlogin");
+                URL url = new URL("https://ihisaab.in/MyTukari/index.php/api/userlogin");
 
                 JSONObject postDataParams = new JSONObject();
                 postDataParams.put("mobile", EdMobile);

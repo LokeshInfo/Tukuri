@@ -104,7 +104,7 @@ public class LocationFragment extends Fragment {
         @Override
         protected String doInBackground(String... params) {
 
-            String sever_url = "http://axomiyagohona.com/grocery-store/index.php/api/location";
+            String sever_url = "https://ihisaab.in/MyTukari/index.php/api/location";
 
             Log.e("sever_url>>>>>>>>>", sever_url);
             output = HttpHandler.makeServiceCall(sever_url);

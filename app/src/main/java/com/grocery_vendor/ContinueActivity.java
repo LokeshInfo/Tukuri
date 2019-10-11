@@ -89,7 +89,7 @@ public class ContinueActivity extends AppCompatActivity {
                 } catch (Exception e) {
                     return new String("Exception: " + e.getMessage());
                 }
-                String result = Utilities.postParamsAndfindJSON("http://axomiyagohona.com/grocery-store/index.php/Api/signup", urlParameters);
+                String result = Utilities.postParamsAndfindJSON("https://ihisaab.in/MyTukari/index.php/Api/signup", urlParameters);
                 return result;
         }
 

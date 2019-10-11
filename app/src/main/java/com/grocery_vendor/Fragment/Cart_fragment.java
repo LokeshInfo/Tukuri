@@ -40,6 +40,7 @@ import com.grocery_vendor.Adapter.Cart_adapter;
 import com.grocery_vendor.Config.BaseURL;
 import com.grocery_vendor.AppController;
 import com.grocery_vendor.ContinueActivity;
+import com.grocery_vendor.LoginActivity;
 import com.grocery_vendor.MainActivity;
 import com.grocery_vendor.NewLogin;
 import com.grocery_vendor.R;
@@ -183,7 +184,7 @@ public class Cart_fragment extends Fragment implements View.OnClickListener {
                     public void onResponse(JSONArray response) {
                         Log.d(TAG, response.toString());
 
-                        Double total_amount = Double.parseDouble(db.getTotalAmount());
+                        Double total_amount = db.gettTotalAmount();
 
                         try {
                             // Parsing json array response
@@ -237,7 +238,7 @@ public class Cart_fragment extends Fragment implements View.OnClickListener {
                                     startActivity(i);*/
 
                                     //Intent i = new Intent(getActivity(), ContinueActivity.class);
-                                    Intent i = new Intent(getActivity(), NewLogin.class);
+                                    Intent i = new Intent(getActivity(), LoginActivity.class);
                                     startActivity(i);
                                 }
                             }

@@ -41,7 +41,7 @@ public class NewRegistation extends AppCompatActivity {
     int otps;
     String NewMob;
     Session_management sessionManagement;
-
+    String getname, getmobile, getmail, getpass, getotp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,16 +62,28 @@ public class NewRegistation extends AppCompatActivity {
 
         otphint.setText(getIntent().getStringExtra("OTP"));
 
+        getname = getIntent().getStringExtra("name");
+        getmail = getIntent().getStringExtra("mail");
+        getmobile= getIntent().getStringExtra("phone");
+        getpass = getIntent().getStringExtra("pass");
+
         btVerify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 Otphint = otphint.getText().toString();
+                getotp = otphint.getText().toString();
 
+                if (!getotp.matches(""))
+                {
                 if (ConnectivityReceiver.isConnected()) {
-                    new PostReg().execute();
+                    new SignupResuest().execute();
                 } else {
                     Toast.makeText(NewRegistation.this, "No Internet", Toast.LENGTH_SHORT).show();
+                }}
+                else
+                {
+                    Toast.makeText(NewRegistation.this, "Please Enter OTP....", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -79,7 +91,129 @@ public class NewRegistation extends AppCompatActivity {
 
     //-----------------------------------------------------------------------
 
-    public class PostReg extends AsyncTask<String, Void, String> {
+    class SignupResuest extends AsyncTask<String, String, String> {
+
+        ProgressDialog dialog;
+
+        protected void onPreExecute() {
+            dialog = new ProgressDialog(NewRegistation.this);
+            dialog.show();
+
+        }
+
+        protected String doInBackground(String... arg0) {
+
+            try {
+
+                URL url = new URL("https://ihisaab.in/MyTukari/index.php/Api/signup");
+               // http://axomiyagohona.com/grocery-store/
+                JSONObject postDataParams = new JSONObject();
+                postDataParams.put("user_name", getname);
+                postDataParams.put("user_mobile", getmobile);
+                postDataParams.put("user_email", getmail);
+                postDataParams.put("password", getpass);
+                postDataParams.put("otp",getotp);
+
+                Log.e("postDataParams", postDataParams.toString());
+
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setReadTimeout(15000);
+                conn.setConnectTimeout(15000);
+                conn.setRequestMethod("POST");
+                conn.setDoInput(true);
+                conn.setDoOutput(true);
+
+                OutputStream os = conn.getOutputStream();
+                BufferedWriter writer = new BufferedWriter(
+                        new OutputStreamWriter(os, "UTF-8"));
+                writer.write(getPostDataString(postDataParams));
+
+                writer.flush();
+                writer.close();
+                os.close();
+
+                int responseCode = conn.getResponseCode();
+
+                if (responseCode == HttpsURLConnection.HTTP_OK) {
+
+                    BufferedReader r = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                    StringBuilder result = new StringBuilder();
+                    String line;
+                    while ((line = r.readLine()) != null) {
+                        result.append(line);
+                    }
+                    r.close();
+                    return result.toString();
+
+                } else {
+                    return new String("false : " + responseCode);
+                }
+            } catch (Exception e) {
+                return new String("Exception: " + e.getMessage());
+            }
+
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            if (result != null) {
+                dialog.dismiss();
+
+                // JSONObject jsonObject = null;
+                Log.e("SIGN UP REQUEST>>>", result.toString());
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    Boolean responce = jsonObject.getBoolean("responce");
+                    String message = jsonObject.getString("message");
+
+                    if (responce) {
+                        Toast.makeText(NewRegistation.this, "Registered Success...Login Now", Toast.LENGTH_SHORT).show();
+                        Intent in = new Intent(NewRegistation.this,LoginActivity.class);
+                        startActivity(in);
+                        finish();
+                    }
+
+                    else {
+                        Toast.makeText(NewRegistation.this, ""+message, Toast.LENGTH_SHORT).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        public String getPostDataString(JSONObject params) throws Exception {
+
+            StringBuilder result = new StringBuilder();
+            boolean first = true;
+
+            Iterator<String> itr = params.keys();
+
+            while (itr.hasNext()) {
+
+                String key = itr.next();
+                Object value = params.get(key);
+
+                if (first)
+                    first = false;
+                else
+                    result.append("&");
+
+                result.append(URLEncoder.encode(key, "UTF-8"));
+                result.append("=");
+                result.append(URLEncoder.encode(value.toString(), "UTF-8"));
+
+            }
+            return result.toString();
+        }
+    }
+
+
+
+
+    //-----------------------------------------------------------------------
+
+    /*public class PostReg extends AsyncTask<String, Void, String> {
         ProgressDialog dialog;
 
         protected void onPreExecute() {
@@ -92,7 +226,7 @@ public class NewRegistation extends AppCompatActivity {
 
             try {
 
-                URL url = new URL("http://axomiyagohona.com/grocery-store/api/matchotp");
+                URL url = new URL("https://ihisaab.in/MyTukari/index.php/api/matchotp");
 
                 JSONObject postDataParams = new JSONObject();
                 postDataParams.put("mobile", mobNum.getText().toString());
@@ -101,8 +235,8 @@ public class NewRegistation extends AppCompatActivity {
                 Log.e("postDataParams_otp", postDataParams.toString());
 
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                conn.setReadTimeout(15000 /* milliseconds*/);
-                conn.setConnectTimeout(15000  /*milliseconds*/);
+                conn.setReadTimeout(15000);
+                conn.setConnectTimeout(15000);
                 conn.setRequestMethod("POST");
                 conn.setDoInput(true);
                 conn.setDoOutput(true);
@@ -144,7 +278,6 @@ public class NewRegistation extends AppCompatActivity {
             } catch (Exception e) {
                 return new String("Exception: " + e.getMessage());
             }
-
         }
 
         @Override
@@ -167,6 +300,7 @@ public class NewRegistation extends AppCompatActivity {
 
                         AppPreference.setMobile(NewRegistation.this,mobile_no);
                         AppPreference.setUser_Id(NewRegistation.this,user_id);
+                        new SEND_TOKEN().execute();
                        // Toast.makeText(NewRegistation.this, "userI "+ AppPreference.getUser_Id(NewRegistation.this), Toast.LENGTH_SHORT).show();
                         sessionManagement.createLoginSession(mobile_no);
 
@@ -209,7 +343,113 @@ public class NewRegistation extends AppCompatActivity {
             }
             return result.toString();
         }
+    }*/
+
+    /// ----------
+
+
+    private class SEND_TOKEN extends AsyncTask<String, String, String> {
+
+        ProgressDialog dialog;
+
+        protected void onPreExecute() {
+//            dialog = new ProgressDialog(MainActivity_drawer.this);
+//            dialog.show();
+        }
+
+        protected String doInBackground(String... arg0) {
+
+            try {
+
+                URL url = new URL("https://ihisaab.in/MyTukari/Api/test_fcm");
+
+                JSONObject postDataParams = new JSONObject();
+                postDataParams.put("user_id", AppPreference.getUser_Id(NewRegistation.this));
+                postDataParams.put("token",AppPreference.getUserToken( NewRegistation.this));
+
+                Log.e("postDataParams", postDataParams.toString());
+
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setReadTimeout(15000 /* milliseconds*/);
+                conn.setConnectTimeout(15000  /*milliseconds*/);
+                conn.setRequestMethod("POST");
+                conn.setDoInput(true);
+                conn.setDoOutput(true);
+
+                OutputStream os = conn.getOutputStream();
+                BufferedWriter writer = new BufferedWriter(
+                        new OutputStreamWriter(os, "UTF-8"));
+                writer.write(getPostDataString(postDataParams));
+
+                writer.flush();
+                writer.close();
+                os.close();
+
+                int responseCode = conn.getResponseCode();
+
+                if (responseCode == HttpsURLConnection.HTTP_OK) {
+
+                    BufferedReader r = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                    StringBuilder result = new StringBuilder();
+                    String line;
+                    while ((line = r.readLine()) != null) {
+                        result.append(line);
+                    }
+                    r.close();
+                    return result.toString();
+
+                } else {
+                    return new String("false : " + responseCode);
+                }
+            } catch (Exception e) {
+                return new String("Exception: " + e.getMessage());
+            }
+
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            if (result != null) {
+//                dialog.dismiss();
+
+                // JSONObject jsonObject = null;
+                Log.e("SendJsonDataToServer>>>", result.toString());
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        public String getPostDataString(JSONObject params) throws Exception {
+
+            StringBuilder result = new StringBuilder();
+            boolean first = true;
+
+            Iterator<String> itr = params.keys();
+
+            while (itr.hasNext()) {
+
+                String key = itr.next();
+                Object value = params.get(key);
+
+                if (first)
+                    first = false;
+                else
+                    result.append("&");
+
+                result.append(URLEncoder.encode(key, "UTF-8"));
+                result.append("=");
+                result.append(URLEncoder.encode(value.toString(), "UTF-8"));
+
+            }
+            return result.toString();
+        }
     }
+
 }
 
     //-------------------------------------------------------------------------------------

@@ -97,15 +97,15 @@ public class Delivery_payment_detail_fragment extends Fragment {
         tv_timeslot.setText(getdate + " " + gettime);
         tv_address.setText(getaddress);
 
-        Double total = Double.parseDouble(db_cart.getTotalAmount()) + deli_charges;
+        Double total = db_cart.gettTotalAmount() + deli_charges;
 
         //tv_total.setText("" + db_cart.getTotalAmount());
         //tv_item.setText("" + db_cart.getCartCount());
         tv_total.setText(getResources().getString(R.string.tv_cart_item) + db_cart.getCartCount() + "\n" +
-                getResources().getString(R.string.amount) + db_cart.getTotalAmount() + "\n" +
+                getResources().getString(R.string.amount) + db_cart.gettTotalAmount() + "\n" +
                 getResources().getString(R.string.delivery_charge) + deli_charges + "\n" +
                 getResources().getString(R.string.total_amount) +
-                db_cart.getTotalAmount() + " + " + deli_charges + " = " + total + " " + getResources().getString(R.string.currency));
+                db_cart.gettTotalAmount() + " + " + deli_charges + " = " + total + " " + getResources().getString(R.string.currency));
 
         tv_pay_total.setText("Pay "+total + " " + getResources().getString(R.string.currency));
 
@@ -176,10 +176,28 @@ public class Delivery_payment_detail_fragment extends Fragment {
 
                 try {
                     jObjP.put("product_id", map.get("product_id"));
+
                     jObjP.put("qty", map.get("qty"));
+                    if (Integer.parseInt(map.get("offer"))==0)
+                    {
                     jObjP.put("unit_value", map.get("unit_value"));
                     jObjP.put("unit", map.get("unit"));
                     jObjP.put("price", map.get("price"));
+                    }
+
+                    else if (Integer.parseInt(map.get("offer"))==1)
+                    {
+                        jObjP.put("unit_value", map.get("price1"));
+                        jObjP.put("unit", 1);
+                        jObjP.put("price", map.get("price1"));
+                    }
+
+                    else if (Integer.parseInt(map.get("offer"))==2)
+                    {
+                        jObjP.put("unit_value", map.get("price2"));
+                        jObjP.put("unit", 1);
+                        jObjP.put("price", map.get("price2"));
+                    }
 
                     passArray.put(jObjP);
                 } catch (JSONException e) {
@@ -187,6 +205,9 @@ public class Delivery_payment_detail_fragment extends Fragment {
                 }
             }
 
+            Log.e("ADD ORDER..."," _______________________________________________________________________________");
+            Log.e("_____________",""+passArray);
+            Log.e("ADD ORDER..."," _______________________________________________________________________________");
            // getuser_id = sessionManagement.getUserDetails().get(BaseURL.KEY_ID);
             getuser_id = AppPreference.getUser_Id(getActivity());
 

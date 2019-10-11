@@ -139,7 +139,7 @@ public class MainActivity extends AppCompatActivity
                     fragmentManager.beginTransaction().replace(R.id.contentPanel, fm)
                             .addToBackStack(null).commit();
                 }else{
-                    Intent i = new Intent(MainActivity.this, NewLogin.class);
+                    Intent i = new Intent(MainActivity.this, LoginActivity.class);
                     startActivity(i);
                 }
             }
@@ -293,7 +293,7 @@ public class MainActivity extends AppCompatActivity
                              tview.setVisibility(View.GONE); }
                              else
                              {
-                                 Intent i = new Intent(MainActivity.this, NewLogin.class);
+                                 Intent i = new Intent(MainActivity.this, LoginActivity.class);
                                  startActivity(i);
                              }
                              return true;
@@ -365,7 +365,7 @@ public class MainActivity extends AppCompatActivity
             tv_name.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent i = new Intent(MainActivity.this, NewLogin.class);
+                    Intent i = new Intent(MainActivity.this, LoginActivity.class);
                     startActivity(i);
                 }
             });
@@ -486,12 +486,10 @@ public class MainActivity extends AppCompatActivity
             else
             {
                 Toast.makeText(MainActivity.this, "Please Login First.....", Toast.LENGTH_SHORT).show();
-                Intent i = new Intent(MainActivity.this, NewLogin.class);
+                Intent i = new Intent(MainActivity.this, LoginActivity.class);
                 startActivity(i);
             }
-
         } else if (id == R.id.nav_support) {
-
             fm = new Support_info_fragment();
             args.putString("url", BaseURL.GET_SUPPORT_URL);
             args.putString("title", getResources().getString(R.string.nav_support));

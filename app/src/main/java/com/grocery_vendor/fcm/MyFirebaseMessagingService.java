@@ -57,7 +57,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         // Not getting messages here? See why this may be: https://goo.gl/39bRNJ
         Log.d(TAG, "From: " + remoteMessage.getFrom());
         Log.i("info", "From: " + remoteMessage.getFrom());
-        Log.i("info", "Notification Message Body: " + remoteMessage.getNotification().getBody());
+//        Log.i("info", "Notification Message Body: " + remoteMessage.getNotification().getBody());
       //  sendNotification(remoteMessage.get,remoteMessage.getFrom(),remoteMessage.getMessageId(),remoteMessage.getData().toString());
         // Check if message contains a data payload.
         if (remoteMessage.getData().size() >0) {

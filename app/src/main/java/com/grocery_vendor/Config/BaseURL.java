@@ -84,8 +84,6 @@ public class BaseURL {
 
     public static String GET_ADDRESS_URL = BASE_URL + "index.php/api/get_address";
 
-    public static String FORGOT_URL = BASE_URL + "index.php/api/forgot_password";
-
     public static String JSON_RIGISTER_FCM = BASE_URL + "index.php/api/register_fcm";
 
     public static String CHANGE_PASSWORD_URL = BASE_URL + "index.php/api/change_password";
@@ -107,9 +105,14 @@ public class BaseURL {
 
     //public static final String BASEURL2 = "https://infocentroid.us/";
 
-    public static final String BASEURL2 = "http://jntrcpl.com/MyTukari";
+    //public static final String BASEURL2 = "http://jntrcpl.com/MyTukari";
+    public static final String BASEURL2 = "https://ihisaab.in/MyTukari";
+
+    //https://ihisaab.in/MyTukari/
 
     //public static final String BASEURL2 = "https://rightchoiceretail.com/";
+
+    public static String FORGOT_URL = BASEURL2 + "/index.php/Api/forgot_password";
 
     public static String GET_SLIDERS = BASEURL2 + "/index.php/Api/get_sliders";
 

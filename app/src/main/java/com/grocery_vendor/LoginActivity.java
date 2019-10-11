@@ -183,7 +183,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             try {
 
-                URL url = new URL("http://axomiyagohona.com/grocery-store/index.php/Api/login");
+                URL url = new URL("https://ihisaab.in/MyTukari/index.php/Api/login");
 
                 JSONObject postDataParams = new JSONObject();
                 postDataParams.put("user_email", Email);
@@ -256,8 +256,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 // JSONObject jsonObject = null;
                 Log.e("SendJsonDataToServer>>>", result.toString());
                 try {
-
-
                     // result=getJSONUrl(URL);  //<< get json string from server
                     JSONObject jsonObject = new JSONObject(result);
                     //jsonObject = new JSONObject(result);
@@ -275,13 +273,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     if (response.equalsIgnoreCase("true")) {
                         AppPreference.setName(LoginActivity.this,user_fullname);
                         AppPreference.setMobile(LoginActivity.this,user_phone);
+                        AppPreference.setUser_Id(LoginActivity.this,user_id);
+                        sessionManagement.createLoginSession(user_phone);
                         Log.e("user_fullname",user_fullname);
                         Log.e("user_phone",user_phone);
                         et_email.setText("");
                         et_password.setText("");
+                        new SEND_TOKEN().execute();
 
 
-                      //  sessionManagement.createLoginSession(user_id,user_fullname,user_email,Password);
+                        //  sessionManagement.createLoginSession(user_id,user_fullname,user_email,Password);
 
 
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
@@ -312,6 +313,108 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     first = false;
                 else
                     result.append("&");
+                result.append(URLEncoder.encode(key, "UTF-8"));
+                result.append("=");
+                result.append(URLEncoder.encode(value.toString(), "UTF-8"));
+            }
+            return result.toString();
+        }
+    }
+
+    //************************************************************
+
+    private class SEND_TOKEN extends AsyncTask<String, String, String> {
+
+        ProgressDialog dialog;
+
+        protected void onPreExecute() {
+//            dialog = new ProgressDialog(MainActivity_drawer.this);
+//            dialog.show();
+        }
+
+        protected String doInBackground(String... arg0) {
+
+            try {
+
+                URL url = new URL("https://ihisaab.in/MyTukari/Api/test_fcm");
+
+                JSONObject postDataParams = new JSONObject();
+                postDataParams.put("user_id", AppPreference.getUser_Id(LoginActivity.this));
+                postDataParams.put("token",AppPreference.getUserToken(LoginActivity.this));
+
+                Log.e("postDataParams", postDataParams.toString());
+
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setReadTimeout(15000 /* milliseconds*/);
+                conn.setConnectTimeout(15000  /*milliseconds*/);
+                conn.setRequestMethod("POST");
+                conn.setDoInput(true);
+                conn.setDoOutput(true);
+
+                OutputStream os = conn.getOutputStream();
+                BufferedWriter writer = new BufferedWriter(
+                        new OutputStreamWriter(os, "UTF-8"));
+                writer.write(getPostDataString(postDataParams));
+
+                writer.flush();
+                writer.close();
+                os.close();
+
+                int responseCode = conn.getResponseCode();
+
+                if (responseCode == HttpsURLConnection.HTTP_OK) {
+
+                    BufferedReader r = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                    StringBuilder result = new StringBuilder();
+                    String line;
+                    while ((line = r.readLine()) != null) {
+                        result.append(line);
+                    }
+                    r.close();
+                    return result.toString();
+
+                } else {
+                    return new String("false : " + responseCode);
+                }
+            } catch (Exception e) {
+                return new String("Exception: " + e.getMessage());
+            }
+
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            if (result != null) {
+//                dialog.dismiss();
+
+                // JSONObject jsonObject = null;
+                Log.e("SendJsonDataToServer>>>", result.toString());
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        public String getPostDataString(JSONObject params) throws Exception {
+
+            StringBuilder result = new StringBuilder();
+            boolean first = true;
+
+            Iterator<String> itr = params.keys();
+
+            while (itr.hasNext()) {
+
+                String key = itr.next();
+                Object value = params.get(key);
+
+                if (first)
+                    first = false;
+                else
+                    result.append("&");
 
                 result.append(URLEncoder.encode(key, "UTF-8"));
                 result.append("=");
@@ -320,13 +423,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             }
             return result.toString();
         }
-
-
     }
-
-    //************************************************************
-
-
 
   /*  private void makeLoginRequest(String email, final String password) {
 

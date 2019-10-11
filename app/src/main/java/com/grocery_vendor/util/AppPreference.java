@@ -12,6 +12,7 @@ public class AppPreference {
     public static final String MOBILE = "mobile";
     public static final String OTP = "otp";
     public static final String User_Id = "user_id";
+    public static final String USER_TOKEN = "user_token";
 
     Context context;
     SharedPreferences prefs;
@@ -56,6 +57,18 @@ public class AppPreference {
     public static String getUser_Id(Context context) {
         SharedPreferences preferences = context.getSharedPreferences(SHARED_PREFERENCE_NAME, 0);
         return preferences.getString(User_Id, "");
+    }
+
+    public static void setUserToken(Context context, String headname) {
+        SharedPreferences preferences = context.getSharedPreferences(SHARED_PREFERENCE_NAME, 0);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString(USER_TOKEN, headname);
+        editor.commit();
+    }
+
+    public static String getUserToken(Context context) {
+        SharedPreferences preferences = context.getSharedPreferences(SHARED_PREFERENCE_NAME, 0);
+        return preferences.getString(USER_TOKEN, "");
     }
 
     public void cleardatetime() {
