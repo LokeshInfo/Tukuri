@@ -32,7 +32,7 @@
             android:scaleType="fitXY"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/lap" />
+            app:srcCompat="@drawable/app_icon" />
 
         <ImageView
             android:id="@+id/iv_subcat_plus"

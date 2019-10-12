@@ -32,7 +32,7 @@
                     android:id="@+id/iv_special_offer"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
-                    android:src="@drawable/spe_offer" />
+                    android:src="@drawable/my_tukuri_logo" />
             </RelativeLayout>
 
                 <RelativeLayout
@@ -44,7 +44,7 @@
                         android:id="@+id/prod_img"
                         android:layout_width="match_parent"
                         android:layout_height="300dp"
-                        android:src="@drawable/lap" />
+                        android:src="@drawable/app_icon" />
 
                 </RelativeLayout>
 

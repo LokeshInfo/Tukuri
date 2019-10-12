@@ -319,8 +319,8 @@ public class Home_fragment extends Fragment {
         return view;
     }
 
-    private void populategroceryList() {
-        Grocery potato = new Grocery("Laptop 20% Off", R.drawable.lap);
+    /*private void populategroceryList() {
+        Grocery potato = new Grocery("Laptop 20% Off", R.drawable.app);
         Grocery onion = new Grocery("Television 15% Off", R.drawable.tv);
         Grocery cabbage = new Grocery("Mobile 30% Off", R.drawable.mobile);
         Grocery cauliflower = new Grocery("Speaker 20% Off", R.drawable.speak);
@@ -329,7 +329,7 @@ public class Home_fragment extends Fragment {
         groceryList.add(cabbage);
         groceryList.add(cauliflower);
         groceryAdapter.notifyDataSetChanged();
-    }
+    }*/
 
     /**
      * Method to make json array request where json response starts wtih {

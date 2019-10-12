@@ -42,7 +42,7 @@
                 android:layout_height="100dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="16dp"
-                app:srcCompat="@drawable/lap"
+                app:srcCompat="@drawable/app_icon"
                 android:layout_gravity="center_vertical"
                 />
 

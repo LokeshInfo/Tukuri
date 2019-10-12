@@ -156,7 +156,7 @@ public class Show_pro_detail_fragment extends Fragment {
         Glide.with(getActivity())
                 .load(BaseURL.IMG_PRODUCT_URL + map.get("product_image"))
 //                .centerCrop()
-                .placeholder(R.drawable.logoimg)
+                .placeholder(R.drawable.app_icon)
                 .crossFade()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .dontAnimate()
@@ -164,9 +164,9 @@ public class Show_pro_detail_fragment extends Fragment {
 
 
         Glide.with(getActivity())
-                .load(R.drawable.spe_offer)
+                .load(R.drawable.my_tukuri_logo)
 //                .centerCrop()
-                .placeholder(R.drawable.spe_offer)
+                .placeholder(R.drawable.my_tukuri_logo)
                 .crossFade()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .dontAnimate()
