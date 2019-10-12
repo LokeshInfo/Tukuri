@@ -118,9 +118,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         }else{
             simpleteNotification(title,message,created_at,pendingIntent);
         }
-
-
-
     }
     private  void simpleteNotification(String title, String message, String timeStamp, PendingIntent pendingIntent){
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
@@ -136,7 +133,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
         notificationManager.notify(0 /* ID of notification */, notificationBuilder.build());
-
     }
     private void showBigNotification(Bitmap bitmap, String title, String message, String timeStamp, PendingIntent resultPendingIntent) {
         NotificationCompat.BigPictureStyle bigPictureStyle = new NotificationCompat.BigPictureStyle();
@@ -191,9 +187,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             return null;
         }
     }
-
-
-
 
     public static long getTimeMilliSec(String timeStamp) {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

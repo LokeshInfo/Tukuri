@@ -242,7 +242,8 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical">
+                            android:orientation="vertical"
+                            >
 
                             <TextView
                                 android:layout_width="match_parent"
@@ -259,6 +260,7 @@
                                 android:text="Online Payment"
                                 android:padding="@dimen/space_5"
                                 android:textStyle="bold"
+                                android:visibility="gone"
                                 />
 
                             <RadioButton

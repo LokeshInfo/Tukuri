@@ -134,7 +134,7 @@ public class Delivery_payment_detail_fragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                if (radio_online_pay.isChecked() || radio_offline_pay.isChecked()){
+               if (radio_online_pay.isChecked() || radio_offline_pay.isChecked()){
                     if (radio_offline_pay.isChecked()){
                         Payment_method=radio_offline_pay.getText().toString();
                         if (ConnectivityReceiver.isConnected()) {
@@ -151,12 +151,16 @@ public class Delivery_payment_detail_fragment extends Fragment {
                             ((MainActivity) getActivity()).onNetworkConnectionChanged(false);
                         }
                     }
-
-
                 }else {
                     Toast.makeText(getActivity(), "Please Choose Payment Option", Toast.LENGTH_LONG).show();
                 }
 
+                /*Payment_method="cash on delivery";
+                if (ConnectivityReceiver.isConnected()) {
+                    attemptOrder();
+                } else {
+                    ((MainActivity) getActivity()).onNetworkConnectionChanged(false);
+                }*/
             }
         });
 
