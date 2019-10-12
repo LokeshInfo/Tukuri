@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:851773623076:android:72d539847bccf63d4701b1",
         "android_client_info": {
-          "package_name": "com.grocery_vendor"
+          "package_name": "com.tukuri.ics"
         }
       },
       "oauth_client": [
@@ -18,7 +18,7 @@
           "client_id": "851773623076-h4mtske54nt4hm8jatr3kj4dcfgibskd.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.grocery_vendor",
+            "package_name": "com.tukuri.ics",
             "certificate_hash": "a7478d883941da03f58dc1a8c5542e7997686d93"
           }
         },

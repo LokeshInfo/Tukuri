@@ -1,4 +1,4 @@
-package com.grocery_vendor;
+package com.tukuri.ics;
 
 import org.junit.Test;
 

@@ -1,4 +1,4 @@
-package com.grocery_vendor;
+package com.tukuri.ics;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

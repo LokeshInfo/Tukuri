@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="47dp"
-    tools:context="com.grocery_vendor.Fragment.OfferFragment">
+    tools:context="com.tukuri.ics.Fragment.OfferFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
