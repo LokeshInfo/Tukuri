@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
@@ -35,6 +36,24 @@
                     />
 
             </FrameLayout>
+
+            <TextView
+                android:id="@+id/tv_add_lat_lng"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Lat_Long For Delivery"
+                android:textSize="14sp"
+                android:layout_marginTop="20dp"
+                />
+
+            <EditText
+                android:id="@+id/et_latlng"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/space_5"
+                android:background="@drawable/xml_textbox_bg"
+                android:ems="10"
+                android:inputType="text" />
 
             <TextView
                 android:id="@+id/tv_add_adres_name"
