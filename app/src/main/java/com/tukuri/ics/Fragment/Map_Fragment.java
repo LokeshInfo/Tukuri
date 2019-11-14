@@ -195,6 +195,8 @@ public  class Map_Fragment extends Fragment
                     Toast.makeText(getActivity(), ""+saddress, Toast.LENGTH_SHORT).show();
                     Intent in = new Intent("StringAddr");
                     in.putExtra("Addr", saddress);
+                    in.putExtra("latitiude",""+latitude);
+                    in.putExtra("longitude",""+longitude);
                     LocalBroadcastManager.getInstance(getContext()).sendBroadcast(in);
                     getFragmentManager().popBackStack();
 

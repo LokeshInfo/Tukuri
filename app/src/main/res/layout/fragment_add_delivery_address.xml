@@ -41,7 +41,7 @@
                 android:id="@+id/tv_add_lat_lng"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Lat_Long For Delivery"
+                android:text="Lat_Long / Location For Delivery"
                 android:textSize="14sp"
                 android:layout_marginTop="20dp"
                 />
@@ -52,8 +52,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/space_5"
                 android:background="@drawable/xml_textbox_bg"
-                android:ems="10"
-                android:inputType="text" />
+                android:inputType="text"
+                android:clickable="true"
+                android:editable="false"
+                android:focusable="false"
+                android:singleLine="true"
+                />
 
             <TextView
                 android:id="@+id/tv_add_adres_name"

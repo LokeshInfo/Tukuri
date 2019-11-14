@@ -63,7 +63,7 @@ import static android.app.Activity.RESULT_OK;
 public class Add_delivery_address_fragment extends Fragment implements View.OnClickListener {
 
     private static String TAG = Add_delivery_address_fragment.class.getSimpleName();
-    private EditText et_phone, et_name, et_pin, et_house,et_landmark, et_city, et_state,et_add_adres_house_no;
+    private EditText et_phone, et_name, et_pin, et_house,et_landmark, et_city, et_state,et_add_adres_house_no, et_latlng;
     private Button btn_update;
     private TextView tv_phone, tv_name, tv_pin, tv_house, tv_socity, btn_socity, tx_mmap;
     private FrameLayout Frame_Map;
@@ -77,7 +77,7 @@ public class Add_delivery_address_fragment extends Fragment implements View.OnCl
     private String gethouse;
     private ArrayList<Delivery_address_model> delivery_address_modelList = new ArrayList<Delivery_address_model>();
     String getlandmark,getcity,getstate,gethouseno;
-    private String Faddress="---";
+    private String Faddress="---", Flatitude, Flongitude;
 
     public Add_delivery_address_fragment() {
         // Required empty public constructor
@@ -106,6 +106,7 @@ public class Add_delivery_address_fragment extends Fragment implements View.OnCl
         et_city = (EditText) view.findViewById(R.id.et_add_adres_city);
         et_state = (EditText) view.findViewById(R.id.et_add_adres_state);
         et_add_adres_house_no = (EditText) view.findViewById(R.id.et_add_adres_house_no);
+        et_latlng = (EditText) view.findViewById(R.id.et_latlng);
 
         tv_house = (TextView) view.findViewById(R.id.tv_add_adres_home);
 
@@ -166,6 +167,13 @@ public class Add_delivery_address_fragment extends Fragment implements View.OnCl
         btn_update.setOnClickListener(this);
         btn_socity.setOnClickListener(this);
 
+        et_latlng.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getActivity(), "Please Click On Map to get your Exact Address Location( Lat/Long )", Toast.LENGTH_LONG).show();
+            }
+        });
+
         LocalBroadcastManager.getInstance(getActivity()).registerReceiver(localBroadcastRec, new IntentFilter("StringAddr"));
 
         return view;
@@ -178,7 +186,11 @@ public class Add_delivery_address_fragment extends Fragment implements View.OnCl
             if (intent!=null)
             {
                 Faddress = intent.getStringExtra("Addr");
+                Flatitude = intent.getStringExtra("latitiude");
+                Flongitude = intent.getStringExtra("longitude");
+
                 et_house.setText(""+Faddress);
+                et_latlng.setText(""+Flatitude+" , "+Flongitude);
 
                 //Log.e("FINALY Address in Delivery Fragment :","------------------"+intent.getStringExtra("Addr"));
             }
@@ -268,6 +280,11 @@ public class Add_delivery_address_fragment extends Fragment implements View.OnCl
             cancel = true;
         }
 
+        if (et_latlng.getText().toString().isEmpty()){
+            Toast.makeText(getActivity(), "Please enter Lat/Long location for delivery...", Toast.LENGTH_SHORT).show();
+            cancel = true;
+        }
+
         if (TextUtils.isEmpty(getsocity) && getsocity == null) {
             tv_socity.setTextColor(getResources().getColor(R.color.colorPrimary));
             focusView = btn_socity;
@@ -291,9 +308,11 @@ public class Add_delivery_address_fragment extends Fragment implements View.OnCl
                 // check internet connection
                 if (ConnectivityReceiver.isConnected()) {
                     if (isEdit) {
+                        Log.e("CALLL 1"," 1 1111111111111111 ");
                         makeEditAddressRequest(user_id,getlocation_id, getpin, gethouse, getname, getphone,getlandmark,getcity,getstate,gethouseno,getsocity);
                        // makeEditAddressRequest(getlocation_id, getpin, getsocity, gethouse, getname, getphone);
                     } else {
+                        Log.e("CALLL 2"," 2222222222222");
                       //  makeAddAddressRequest(user_id, getpin, getsocity, gethouse, getname, getphone);
                         makeAddAddressRequest(user_id, getpin, gethouse, getname, getphone,getlandmark,getcity,getstate,gethouseno,getsocity);
                     }
@@ -329,6 +348,8 @@ public class Add_delivery_address_fragment extends Fragment implements View.OnCl
         params.put("city", "");
         params.put("state", "");
         params.put("house_no", gethouseno);
+        params.put("latitude",Flatitude);
+        params.put("longitude",Flongitude);
 
         Log.e("post_addres",""+params);
 
@@ -353,7 +374,6 @@ public class Add_delivery_address_fragment extends Fragment implements View.OnCl
                         getArguments().putString("house_address", et_house.getText().toString().trim());
                         getArguments().putString("city","" );
                         getArguments().putString("state", "");
-
                         ((MainActivity) getActivity()).onBackPressed();
 
 
@@ -402,6 +422,9 @@ public class Add_delivery_address_fragment extends Fragment implements View.OnCl
         params.put("city", getcity);
         params.put("state", getstate);
         params.put("house_no", gethouseno);
+
+        params.put("latitude",Flatitude);
+        params.put("longitude",Flongitude);
 
         CustomVolleyJsonRequest jsonObjReq = new CustomVolleyJsonRequest(Request.Method.POST,
                 BaseURL.EDIT_ADDRESS, params, new Response.Listener<JSONObject>() {
