@@ -191,14 +191,14 @@ public class Delivery_payment_detail_fragment extends Fragment {
 
                     else if (Integer.parseInt(map.get("offer"))==1)
                     {
-                        jObjP.put("unit_value", map.get("price1"));
+                        jObjP.put("unit_value", map.get("pack1"));
                         jObjP.put("unit", 1);
                         jObjP.put("price", map.get("price1"));
                     }
 
                     else if (Integer.parseInt(map.get("offer"))==2)
                     {
-                        jObjP.put("unit_value", map.get("price2"));
+                        jObjP.put("unit_value", map.get("pack2"));
                         jObjP.put("unit", 1);
                         jObjP.put("price", map.get("price2"));
                     }
@@ -217,7 +217,7 @@ public class Delivery_payment_detail_fragment extends Fragment {
 
             if (ConnectivityReceiver.isConnected()) {
 
-                Log.e(TAG, "from:" + gettime + "\ndate:" + getdate +
+                Log.e(TAG, "  Delivery Charges "+deli_charges+"   " +"from:" + gettime + "\ndate:" + getdate +
                         "\n" + "\nuser_id:" + getuser_id + "\n" + getlocation_id + "\ndata:" + passArray.toString());
 
                 makeAddOrderRequest(getdate, gettime, getuser_id, getlocation_id, passArray,Payment_method);
@@ -241,6 +241,7 @@ public class Delivery_payment_detail_fragment extends Fragment {
         params.put("location", location);
         params.put("data", passArray.toString());
         params.put("payment_mode",payment_method );
+        params.put("delivery_charge", ""+deli_charges);
 
         CustomVolleyJsonRequest jsonObjReq = new CustomVolleyJsonRequest(Request.Method.POST,
                 BaseURL.ADD_ORDER, params, new Response.Listener<JSONObject>() {
@@ -248,6 +249,7 @@ public class Delivery_payment_detail_fragment extends Fragment {
             @Override
             public void onResponse(JSONObject response) {
                 Log.d(TAG, response.toString());
+                //Toast.makeText(getActivity(), "   "+response, Toast.LENGTH_LONG).show();
                 Log.e("payOrder", response.toString());
 
                 try {

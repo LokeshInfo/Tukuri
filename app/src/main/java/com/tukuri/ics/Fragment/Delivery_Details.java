@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -87,8 +88,8 @@ public class Delivery_Details extends Fragment {
 
             try {
 
-                URL url = new URL("https://jntrcpl.com/MyTukari/api/get_assign_user");
-
+                URL url = new URL(BaseURL.BASEURL2+"/index.php/Api/get_assign_user");
+//https://jntrcpl.com/MyTukari/api/
                 JSONObject postDataParams = new JSONObject();
                 postDataParams.put("order_id", orderid);
 

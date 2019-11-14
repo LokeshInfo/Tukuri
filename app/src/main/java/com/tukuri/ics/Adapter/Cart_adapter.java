@@ -3,6 +3,7 @@ package com.tukuri.ics.Adapter;
 import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -106,6 +107,8 @@ public class Cart_adapter extends RecyclerView.Adapter<Cart_adapter.ProductHolde
         {
             holder.tv_price.setText(map.get("unit_value") + " " +
                     map.get("unit") +" "+activity.getResources().getString(R.string.currency)+" "+ map.get("price"));
+            Log.e("OFFER  : ",">>>>>>>>>>>> "+map.get("unit_value") + "     " +
+                    "......"+ map.get("unit") +" _____ "+ map.get("price"));
             holder.tv_contetiy.setText(map.get("qty"));
             price =  Double.parseDouble(map.get("price"));
             holder.tv_total.setText("" + price * items );
@@ -114,6 +117,7 @@ public class Cart_adapter extends RecyclerView.Adapter<Cart_adapter.ProductHolde
         else if (map.get("offer").equals("1"))
         {
             holder.tv_price.setText(map.get("pack1") + " " + map.get("price1"));
+            Log.e("OFFER 2 : ",">>>>>>>>>>>> "+map.get("pack1") + "     ......");
             holder.tv_total.setText(activity.getResources().getString(R.string.currency)+" " + map.get("price1"));
             holder.ch1.setChecked(true);
         }
@@ -121,6 +125,7 @@ public class Cart_adapter extends RecyclerView.Adapter<Cart_adapter.ProductHolde
         else if (map.get("offer").equals("2"))
         {
             holder.tv_price.setText(map.get("pack2") + " " + map.get("price2"));
+            Log.e("OFFER 2 : ",">>>>>>>>>>>> "+map.get("pack2") + "     ......");
             holder.tv_total.setText(activity.getResources().getString(R.string.currency)+" " + map.get("price2"));
             holder.ch2.setChecked(true);
         }

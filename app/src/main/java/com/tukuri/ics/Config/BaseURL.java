@@ -157,11 +157,8 @@ public class BaseURL {
     public static final String GET_ADDRESS = BASEURL2 + "/index.php/Api/get_address";
 
     public static final String EDIT_PROFILE = BASEURL2 + "/index.php/Api/update_userdata";
+
     public static final String GET_PROFILE = BASEURL2 + "/index.php/Api/get_profile?user_id=";
-
-
-
-
 
     public static final String ADD_ORDER = BASEURL2 + "/index.php/Api/send_order";
 

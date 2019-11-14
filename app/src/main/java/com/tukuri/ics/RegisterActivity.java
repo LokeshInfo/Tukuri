@@ -134,6 +134,7 @@ public class RegisterActivity extends AppCompatActivity implements
             cancel = true;
         } else if (!isPhoneValid(getphone)) {
             tv_phone.setText(getResources().getString(R.string.phone_too_short));
+            Toast.makeText(RegisterActivity.this, "Enter valid phone number...", Toast.LENGTH_SHORT).show();
             tv_phone.setTextColor(getResources().getColor(R.color.colorPrimary));
             focusView = et_phone;
             cancel = true;
@@ -152,6 +153,7 @@ public class RegisterActivity extends AppCompatActivity implements
         } else if (!isPasswordValid(getpassword)) {
             tv_password.setText(getResources().getString(R.string.password_too_short));
             tv_password.setTextColor(getResources().getColor(R.color.colorPrimary));
+            Toast.makeText(RegisterActivity.this, "Password too short...", Toast.LENGTH_SHORT).show();
             focusView = et_password;
             cancel = true;
         }
@@ -163,6 +165,7 @@ public class RegisterActivity extends AppCompatActivity implements
         } else if (!isEmailValid(getemail)) {
             tv_email.setText(getResources().getString(R.string.invalide_email_address));
             tv_email.setTextColor(getResources().getColor(R.color.colorPrimary));
+            Toast.makeText(RegisterActivity.this, "Enter valid email id...", Toast.LENGTH_SHORT).show();
             focusView = et_email;
             cancel = true;
         }
@@ -179,7 +182,7 @@ public class RegisterActivity extends AppCompatActivity implements
 
             if (ConnectivityReceiver.isConnected()) {
 
-                new SendDataToServer().execute();
+                new SignupResuest().execute();
                 // makeRegisterRequest(getname, getphone, getemail, getpassword);
             }
         }
@@ -205,130 +208,8 @@ public class RegisterActivity extends AppCompatActivity implements
     //********************************************************
 
 
-    class SendDataToServer extends AsyncTask<String, String, String> {
 
-        ProgressDialog dialog;
-
-        protected void onPreExecute() {
-            dialog = new ProgressDialog(RegisterActivity.this);
-            dialog.show();
-
-        }
-
-        protected String doInBackground(String... arg0) {
-
-            try {
-
-                URL url = new URL("https://ihisaab.in/MyTukari/index.php/Api/sentotp");
-                // http://axomiyagohona.com/grocery-store/
-                JSONObject postDataParams = new JSONObject();
-                postDataParams.put("user_mobile", getphone);
-                postDataParams.put("user_email", getemail);
-
-                Log.e("postDataParams", postDataParams.toString());
-
-                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                conn.setReadTimeout(15000 /* milliseconds*/);
-                conn.setConnectTimeout(15000  /*milliseconds*/);
-                conn.setRequestMethod("POST");
-                conn.setDoInput(true);
-                conn.setDoOutput(true);
-
-                OutputStream os = conn.getOutputStream();
-                BufferedWriter writer = new BufferedWriter(
-                        new OutputStreamWriter(os, "UTF-8"));
-                writer.write(getPostDataString(postDataParams));
-
-                writer.flush();
-                writer.close();
-                os.close();
-
-                int responseCode = conn.getResponseCode();
-
-                if (responseCode == HttpsURLConnection.HTTP_OK) {
-
-                    BufferedReader r = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-                    StringBuilder result = new StringBuilder();
-                    String line;
-                    while ((line = r.readLine()) != null) {
-                        result.append(line);
-                    }
-                    r.close();
-                    return result.toString();
-
-                } else {
-                    return new String("false : " + responseCode);
-                }
-            } catch (Exception e) {
-                return new String("Exception: " + e.getMessage());
-            }
-
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            if (result != null) {
-                dialog.dismiss();
-
-                // JSONObject jsonObject = null;
-                Log.e("SendJsonDataToServer>>>", result.toString());
-                try {
-                    JSONObject jsonObject = new JSONObject(result);
-                    Boolean responce = jsonObject.getBoolean("responce");
-                    String message = jsonObject.getString("message");
-
-                    if (responce)
-                    {
-                        Intent otpin = new Intent(RegisterActivity.this, NewRegistation.class);
-                        otpin.putExtra("name",getname);
-                        otpin.putExtra("mail",getemail);
-                        otpin.putExtra("phone",getphone);
-                        otpin.putExtra("pass",getpassword);
-                        startActivity(otpin);
-                        Toast.makeText(RegisterActivity.this, "OTP sent to your Mail id...",Toast.LENGTH_SHORT).show();
-                    }
-                    else
-                    {
-                        Toast.makeText(RegisterActivity.this, ""+message, Toast.LENGTH_SHORT).show();
-                    }
-
-
-                    Log.e(">>>>", jsonObject.toString() + " " + responce + " " + message);
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-
-        public String getPostDataString(JSONObject params) throws Exception {
-
-            StringBuilder result = new StringBuilder();
-            boolean first = true;
-
-            Iterator<String> itr = params.keys();
-
-            while (itr.hasNext()) {
-
-                String key = itr.next();
-                Object value = params.get(key);
-
-                if (first)
-                    first = false;
-                else
-                    result.append("&");
-
-                result.append(URLEncoder.encode(key, "UTF-8"));
-                result.append("=");
-                result.append(URLEncoder.encode(value.toString(), "UTF-8"));
-
-            }
-            return result.toString();
-        }
-    }
-
-
-    /*class SendJsonDataToServer extends AsyncTask<String, String, String> {
+    class SignupResuest extends AsyncTask<String, String, String> {
 
         ProgressDialog dialog;
 
@@ -343,18 +224,19 @@ public class RegisterActivity extends AppCompatActivity implements
             try {
 
                 URL url = new URL("https://ihisaab.in/MyTukari/index.php/Api/signup");
-               // http://axomiyagohona.com/grocery-store/
+                // http://axomiyagohona.com/grocery-store/
                 JSONObject postDataParams = new JSONObject();
                 postDataParams.put("user_name", getname);
                 postDataParams.put("user_mobile", getphone);
                 postDataParams.put("user_email", getemail);
                 postDataParams.put("password", getpassword);
+                //postDataParams.put("otp",getotp);
 
                 Log.e("postDataParams", postDataParams.toString());
 
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                conn.setReadTimeout(15000 *//* milliseconds*//*);
-                conn.setConnectTimeout(15000  *//*milliseconds*//*);
+                conn.setReadTimeout(15000);
+                conn.setConnectTimeout(15000);
                 conn.setRequestMethod("POST");
                 conn.setDoInput(true);
                 conn.setDoOutput(true);
@@ -396,35 +278,34 @@ public class RegisterActivity extends AppCompatActivity implements
                 dialog.dismiss();
 
                 // JSONObject jsonObject = null;
-                Log.e("SendJsonDataToServer>>>", result.toString());
+                Log.e("SIGN UP REQUEST>>>", result.toString());
                 try {
                     JSONObject jsonObject = new JSONObject(result);
-                    String responce = jsonObject.getString("responce");
-                    String message = jsonObject.getString("message");
-                    JSONObject obj = jsonObject.getJSONObject("data");
-                    user_phone = obj.getString("user_phone");
-                    String user_email = obj.getString("user_email");
-                    user_fullname = obj.getString("user_fullname");
-                    String password = obj.getString("password");
-                    String user_id = obj.getString("user_id");
+                    Boolean responce = jsonObject.getBoolean("responce");
+                    String message1 = jsonObject.getString("message");
 
-                    Log.e(">>>>", jsonObject.toString() + " " + responce + " " + message);
+                    if (responce) {
+                        Toast.makeText(RegisterActivity.this, "Registered Success...", Toast.LENGTH_SHORT).show();
 
-                    if (responce.equalsIgnoreCase("true")) {
-                        AppPreference.setName(RegisterActivity.this, user_fullname);
-                        AppPreference.setMobile(RegisterActivity.this, user_phone);
+                        JSONObject message = jsonObject.getJSONObject("data");
+                        String user_id = message.getString("user_id");
+                        user_fullname = message.getString("user_fullname");
+                        String user_email =message.getString("user_email");
+                        user_phone = message.getString("user_phone");
 
-                       // sessionManagement.createLoginSession(user_id, user_fullname, user_email, password);
-                        et_name.setText("");
-                        et_phone.setText("");
-                        et_email.setText("");
-                        et_phone.setText("");
+                        AppPreference.setName(RegisterActivity.this,user_fullname);
+                        AppPreference.setMobile(RegisterActivity.this,user_phone);
+                        AppPreference.setUser_Id(RegisterActivity.this,user_id);
+                        sessionManagement.createLoginSession(user_phone);
 
-                        Toast.makeText(RegisterActivity.this, message, Toast.LENGTH_LONG).show();
-                        Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
-                        startActivity(intent);
+                        Intent in = new Intent(RegisterActivity.this, MainActivity.class);
+                        startActivity(in);
+                        finish();
                     }
 
+                    else {
+                        Toast.makeText(RegisterActivity.this, ""+message1, Toast.LENGTH_SHORT).show();
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -455,67 +336,136 @@ public class RegisterActivity extends AppCompatActivity implements
             }
             return result.toString();
         }
-    }*/
-
-
-    /****************************************
-
-
-     /**
-     * Method to make json object request where json response starts wtih
-     */
-   /* private void makeRegisterRequest(String name, String mobile,
-                                     String email, String password) {
-
-        // Tag used to cancel the request
-        String tag_json_obj = "json_register_req";
-
-        Map<String, String> params = new HashMap<String, String>();
-        params.put("user_name", name);
-        params.put("user_mobile", mobile);
-        params.put("user_email", email);
-        params.put("password", password);
-
-
-        CustomVolleyJsonRequest jsonObjReq = new CustomVolleyJsonRequest(Request.Method.POST,
-                BaseURL.REGISTER_URL, params, new Response.Listener<JSONObject>() {
-
-            @Override
-            public void onResponse(JSONObject response) {
-                Log.d(TAG, response.toString());
-
-                try {
-                    Boolean status = response.getBoolean("responce");
-                    if (status) {
-
-                        String msg = response.getString("message");
-                        Toast.makeText(RegisterActivity.this, "" + msg, Toast.LENGTH_SHORT).show();
-
-                        Intent i = new Intent(RegisterActivity.this, LoginActivity.class);
-                        startActivity(i);
-                        finish();
-
-                    } else {
-                        String error = response.getString("error");
-                        Toast.makeText(RegisterActivity.this, "" + error, Toast.LENGTH_SHORT).show();
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                VolleyLog.d(TAG, "Error: " + error.getMessage());
-                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
-                    Toast.makeText(RegisterActivity.this, getResources().getString(R.string.connection_time_out), Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
-        // Adding request to request queue
-        AppController.getInstance().addToRequestQueue(jsonObjReq, tag_json_obj);
     }
-*/
+
+
+    //********************************************************
+
 }
+
+
+/// Send OTP to MAIL
+/*
+class SendDataToServer extends AsyncTask<String, String, String> {
+
+    ProgressDialog dialog;
+
+    protected void onPreExecute() {
+        dialog = new ProgressDialog(RegisterActivity.this);
+        dialog.show();
+
+    }
+
+    protected String doInBackground(String... arg0) {
+
+        try {
+
+            URL url = new URL("https://ihisaab.in/MyTukari/index.php/Api/sentotp");
+            // http://axomiyagohona.com/grocery-store/
+            JSONObject postDataParams = new JSONObject();
+            postDataParams.put("user_mobile", getphone);
+            postDataParams.put("user_email", getemail);
+
+            Log.e("postDataParams", postDataParams.toString());
+
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setReadTimeout(15000  milliseconds);
+            conn.setConnectTimeout(15000  milliseconds);
+            conn.setRequestMethod("POST");
+            conn.setDoInput(true);
+            conn.setDoOutput(true);
+
+            OutputStream os = conn.getOutputStream();
+            BufferedWriter writer = new BufferedWriter(
+                    new OutputStreamWriter(os, "UTF-8"));
+            writer.write(getPostDataString(postDataParams));
+
+            writer.flush();
+            writer.close();
+            os.close();
+
+            int responseCode = conn.getResponseCode();
+
+            if (responseCode == HttpsURLConnection.HTTP_OK) {
+
+                BufferedReader r = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                StringBuilder result = new StringBuilder();
+                String line;
+                while ((line = r.readLine()) != null) {
+                    result.append(line);
+                }
+                r.close();
+                return result.toString();
+
+            } else {
+                return new String("false : " + responseCode);
+            }
+        } catch (Exception e) {
+            return new String("Exception: " + e.getMessage());
+        }
+
+    }
+
+    @Override
+    protected void onPostExecute(String result) {
+        if (result != null) {
+            dialog.dismiss();
+
+            // JSONObject jsonObject = null;
+            Log.e("SendJsonDataToServer>>>", result.toString());
+            try {
+                JSONObject jsonObject = new JSONObject(result);
+                Boolean responce = jsonObject.getBoolean("responce");
+                String message = jsonObject.getString("message");
+
+                if (responce)
+                {
+                    Intent otpin = new Intent(RegisterActivity.this, NewRegistation.class);
+                    otpin.putExtra("name",getname);
+                    otpin.putExtra("mail",getemail);
+                    otpin.putExtra("phone",getphone);
+                    otpin.putExtra("pass",getpassword);
+                    startActivity(otpin);
+                    Toast.makeText(RegisterActivity.this, "OTP sent to your Mail id...",Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    Toast.makeText(RegisterActivity.this, ""+message, Toast.LENGTH_SHORT).show();
+                }
+
+
+                Log.e(">>>>", jsonObject.toString() + " " + responce + " " + message);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public String getPostDataString(JSONObject params) throws Exception {
+
+        StringBuilder result = new StringBuilder();
+        boolean first = true;
+
+        Iterator<String> itr = params.keys();
+
+        while (itr.hasNext()) {
+
+            String key = itr.next();
+            Object value = params.get(key);
+
+            if (first)
+                first = false;
+            else
+                result.append("&");
+
+            result.append(URLEncoder.encode(key, "UTF-8"));
+            result.append("=");
+            result.append(URLEncoder.encode(value.toString(), "UTF-8"));
+
+        }
+        return result.toString();
+    }
+}*/
+
+ /////////////////////////////

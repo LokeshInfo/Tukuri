@@ -333,6 +333,7 @@ public class Delivery_fragment extends Fragment implements View.OnClickListener 
             args.putString("address", address);
             args.putString("deli_charges", deli_charges);
             fm.setArguments(args);
+            Log.e("Deli Charges ","_______________________________________________   "+deli_charges);
             FragmentManager fragmentManager = getFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.contentPanel, fm)
                     .addToBackStack(null).commit();

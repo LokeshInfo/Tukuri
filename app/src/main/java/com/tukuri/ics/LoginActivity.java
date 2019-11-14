@@ -283,7 +283,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         new SEND_TOKEN().execute();
 
 
-                        //  sessionManagement.createLoginSession(user_id,user_fullname,user_email,Password);
+//                          sessionManagement.createLoginSession(user_id,user_fullname,user_email,Password);
 
 
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);

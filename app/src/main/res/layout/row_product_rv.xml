@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:layout_width="match_parent"
+<LinearLayout
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
@@ -68,7 +69,52 @@
             app:layout_constraintVertical_bias="1.0"
             app:srcCompat="@drawable/ic_less" />
 
-        <TextView
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:gravity="end"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="@+id/iv_subcat_minus"
+            app:layout_constraintRight_toRightOf="@+id/iv_subcat_plus"
+            app:layout_constraintTop_toBottomOf="@+id/iv_subcat_plus">
+
+            <TextView
+                android:id="@+id/tx_d1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="7pt"
+                />
+            <TextView
+                android:id="@+id/tx_dd1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/strike"
+                android:textColor="@color/grey"
+                android:textSize="7pt"
+                android:layout_marginRight="13dp"
+                />
+
+            <TextView
+                android:id="@+id/tx_dis1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Discount 1"
+                android:textColor="@color/black"
+                android:gravity="end"
+                android:textSize="7pt"
+                />
+            <CheckBox
+                android:id="@+id/chk1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
+        </LinearLayout>
+
+     <!--   <TextView
             android:id="@+id/tv_subcat_add"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -81,7 +127,7 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toLeftOf="@+id/iv_subcat_minus"
             app:layout_constraintRight_toRightOf="@+id/iv_subcat_plus"
-            app:layout_constraintTop_toBottomOf="@+id/iv_subcat_plus" />
+            app:layout_constraintTop_toBottomOf="@+id/iv_subcat_plus" />-->
 
         <ImageView
             android:id="@+id/iv_subcat_remove"
@@ -121,14 +167,14 @@
                 android:textSize="15dp"
                 />
                 <TextView
-                    android:id="@+id/tx_d1"
+                    android:id="@+id/tx_d2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
                     android:textSize="7pt"
                     />
                 <TextView
-                    android:id="@+id/tx_dd1"
+                    android:id="@+id/tx_dd2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/strike"
@@ -137,15 +183,15 @@
                     android:textSize="7pt"
                     />
             <TextView
-                android:id="@+id/tx_dis1"
+                android:id="@+id/tx_dis2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Discount 1"
+                android:text="Discount 2"
                 android:textColor="@color/black"
                 android:textSize="7pt"
                 />
             <CheckBox
-                android:id="@+id/chk1"
+                android:id="@+id/chk2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 />
@@ -166,35 +212,18 @@
                 android:text="0"
                 android:textSize="@dimen/space_13"
                 />
+
             <TextView
-                android:id="@+id/tx_d2"
-                android:layout_width="wrap_content"
+                android:id="@+id/tv_subcat_add"
+                android:layout_width="115dp"
                 android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:textSize="7pt"
-                />
-            <TextView
-                android:id="@+id/tx_dd2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/strike"
-                android:textColor="@color/grey"
-                android:textSize="7pt"
-                android:layout_marginRight="13dp"
-                />
-            <TextView
-                android:id="@+id/tx_dis2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Discount 2"
-                android:textColor="@color/black"
-                android:textSize="7pt"
-                />
-            <CheckBox
-                android:id="@+id/chk2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                />
+                android:layout_marginTop="12dp"
+                android:background="@drawable/rounded_corner_textview"
+                android:gravity="center"
+                android:padding="@dimen/space_10"
+                android:text="@string/tv_pro_add"
+                android:textColor="@color/white"/>
+
 
         </LinearLayout>
             <LinearLayout

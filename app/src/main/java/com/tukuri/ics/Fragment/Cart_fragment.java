@@ -311,7 +311,7 @@ public class Cart_fragment extends Fragment implements View.OnClickListener {
         @Override
         protected String doInBackground(String... strings) {
             try {
-                url = "https://jntrcpl.com/MyTukari/api/delivery_charge";
+                url = BaseURL.BASEURL2+"/index.php/Api/delivery_charge";
             } catch (Exception e) {
                 e.printStackTrace();
             }

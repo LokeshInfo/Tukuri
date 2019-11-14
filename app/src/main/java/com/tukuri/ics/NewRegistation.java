@@ -113,7 +113,7 @@ public class NewRegistation extends AppCompatActivity {
                 postDataParams.put("user_mobile", getmobile);
                 postDataParams.put("user_email", getmail);
                 postDataParams.put("password", getpass);
-                postDataParams.put("otp",getotp);
+                //postDataParams.put("otp",getotp);
 
                 Log.e("postDataParams", postDataParams.toString());
 

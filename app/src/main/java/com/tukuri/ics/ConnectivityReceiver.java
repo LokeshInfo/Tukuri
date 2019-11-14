@@ -6,9 +6,6 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
-/**
- * Created by Rajesh Dabhi on 22/6/2017.
- */
 
 public class ConnectivityReceiver extends BroadcastReceiver {
 
