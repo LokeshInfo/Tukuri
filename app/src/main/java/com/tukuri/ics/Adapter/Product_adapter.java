@@ -316,6 +316,7 @@ public class Product_adapter extends RecyclerView.Adapter<Product_adapter.MyView
         this.mFilteredList = modelList;
 
         dbcart = new DatabaseHandler(context);
+        setHasStableIds(true);
     }
 
     @Override
@@ -327,6 +328,18 @@ public class Product_adapter extends RecyclerView.Adapter<Product_adapter.MyView
 
         return new Product_adapter.MyViewHolder(itemView);
     }
+
+    @Override
+    public int getItemViewType(int position) {
+        return position;
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+
 
     @Override
     public void onBindViewHolder(final Product_adapter.MyViewHolder holder, int position) {
@@ -348,12 +361,12 @@ public class Product_adapter extends RecyclerView.Adapter<Product_adapter.MyView
               }
 
               else if (cart_list.get("offer").equals("1")) {
-                  holder.ch1.setChecked(true);
                   holder.ch2.setChecked(false);
                   *//*holder.ch1.setEnabled(false);
                   holder.ch2.setEnabled(false);
                   holder.iv_plus.setEnabled(false);
-                  holder.iv_minus.setEnabled(false);*//*
+                  holder.iv_minus.setEnabled(false);*//* holder.ch1.setChecked(true);
+
               }
 
               else if (cart_list.get("offer").equals("2")) {
