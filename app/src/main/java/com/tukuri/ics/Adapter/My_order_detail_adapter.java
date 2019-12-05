@@ -24,7 +24,7 @@ public class My_order_detail_adapter extends RecyclerView.Adapter<My_order_detai
     private Context context;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView tv_title, tv_price, tv_qty;
+        public TextView tv_title, tv_price, tv_qty, tv_unitval;
         public ImageView iv_img;
 
         public MyViewHolder(View view) {
@@ -33,7 +33,7 @@ public class My_order_detail_adapter extends RecyclerView.Adapter<My_order_detai
             tv_price = (TextView) view.findViewById(R.id.tv_order_Detail_price);
             tv_qty = (TextView) view.findViewById(R.id.tv_order_Detail_qty);
             iv_img = (ImageView) view.findViewById(R.id.iv_order_detail_img);
-
+            tv_unitval = (TextView) view.findViewById(R.id.tx_unitvalue);
         }
     }
 
@@ -67,6 +67,7 @@ public class My_order_detail_adapter extends RecyclerView.Adapter<My_order_detai
         holder.tv_title.setText(mList.getProduct_name());
         holder.tv_price.setText(mList.getPrice());
         holder.tv_qty.setText(mList.getQty());
+        holder.tv_unitval.setText(mList.getUnit_value());
 
     }
 
