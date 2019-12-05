@@ -21,6 +21,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import com.tukuri.ics.Adapter.LocationAdapter;
+import com.tukuri.ics.Config.BaseURL;
 import com.tukuri.ics.Model.My_Locatio_model;
 
 import com.tukuri.ics.R;
@@ -104,7 +105,8 @@ public class LocationFragment extends Fragment {
         @Override
         protected String doInBackground(String... params) {
 
-            String sever_url = "https://ihisaab.in/MyTukari/index.php/api/location";
+            //String sever_url = "https://ihisaab.in/MyTukari/index.php/api/location";
+            String sever_url = BaseURL.BASEURL2+"/index.php/api/location";
 
             Log.e("sever_url>>>>>>>>>", sever_url);
             output = HttpHandler.makeServiceCall(sever_url);

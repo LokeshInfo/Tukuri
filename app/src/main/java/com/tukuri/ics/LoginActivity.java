@@ -29,6 +29,7 @@ import java.util.Iterator;
 
 import javax.net.ssl.HttpsURLConnection;
 
+import com.tukuri.ics.Config.BaseURL;
 import com.tukuri.ics.R;
 import com.tukuri.ics.AppPreference;
 import com.tukuri.ics.ConnectivityReceiver;
@@ -184,7 +185,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             try {
 
-                URL url = new URL("https://ihisaab.in/MyTukari/index.php/Api/login");
+                URL url = new URL(BaseURL.BASEURL2+"/index.php/Api/login");
 
                 JSONObject postDataParams = new JSONObject();
                 postDataParams.put("user_email", Email);
@@ -337,7 +338,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             try {
 
-                URL url = new URL("https://ihisaab.in/MyTukari/Api/test_fcm");
+                URL url = new URL(BaseURL.BASEURL2+"/Api/test_fcm");
 
                 JSONObject postDataParams = new JSONObject();
                 postDataParams.put("user_id", AppPreference.getUser_Id(LoginActivity.this));

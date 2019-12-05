@@ -106,7 +106,7 @@ public class NewRegistation extends AppCompatActivity {
 
             try {
 
-                URL url = new URL("https://ihisaab.in/MyTukari/index.php/Api/signup");
+                URL url = new URL(BaseURL.BASEURL2+"/index.php/Api/signup");
                // http://axomiyagohona.com/grocery-store/
                 JSONObject postDataParams = new JSONObject();
                 postDataParams.put("user_name", getname);
@@ -362,7 +362,7 @@ public class NewRegistation extends AppCompatActivity {
 
             try {
 
-                URL url = new URL("https://ihisaab.in/MyTukari/Api/test_fcm");
+                URL url = new URL(BaseURL.BASEURL2+"/Api/test_fcm");
 
                 JSONObject postDataParams = new JSONObject();
                 postDataParams.put("user_id", AppPreference.getUser_Id(NewRegistation.this));

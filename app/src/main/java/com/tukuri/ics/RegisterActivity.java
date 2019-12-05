@@ -31,6 +31,7 @@ import java.util.Iterator;
 
 import javax.net.ssl.HttpsURLConnection;
 
+import com.tukuri.ics.Config.BaseURL;
 import com.tukuri.ics.R;
 import com.tukuri.ics.AppPreference;
 import com.tukuri.ics.ConnectivityReceiver;
@@ -222,8 +223,7 @@ public class RegisterActivity extends AppCompatActivity implements
         protected String doInBackground(String... arg0) {
 
             try {
-
-                URL url = new URL("https://ihisaab.in/MyTukari/index.php/Api/signup");
+                URL url = new URL(BaseURL.BASEURL2+"/index.php/Api/signup");
                 // http://axomiyagohona.com/grocery-store/
                 JSONObject postDataParams = new JSONObject();
                 postDataParams.put("user_name", getname);

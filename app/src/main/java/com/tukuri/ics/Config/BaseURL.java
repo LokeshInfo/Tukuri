@@ -48,7 +48,8 @@ public class BaseURL {
     //public static final String BASEURL2 = "https://infocentroid.us/";
 
     //public static final String BASEURL2 = "http://jntrcpl.com/MyTukari";
-    public static final String BASEURL2 = "https://ihisaab.in/MyTukari";
+    //public static final String BASEURL2 = "https://ihisaab.in/MyTukari";
+    public static final String BASEURL2 = "http://infocentroid.us/My_Tukuri_Live";
 
     //https://ihisaab.in/MyTukari/
 

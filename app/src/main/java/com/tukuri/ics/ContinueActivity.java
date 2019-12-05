@@ -19,6 +19,7 @@ import org.json.JSONObject;
 import java.net.URLEncoder;
 import java.util.Iterator;
 
+import com.tukuri.ics.Config.BaseURL;
 import com.tukuri.ics.R;
 import com.tukuri.ics.Session_management;
 
@@ -90,7 +91,7 @@ public class ContinueActivity extends AppCompatActivity {
                 } catch (Exception e) {
                     return new String("Exception: " + e.getMessage());
                 }
-                String result = Utilities.postParamsAndfindJSON("https://ihisaab.in/MyTukari/index.php/Api/signup", urlParameters);
+                String result = Utilities.postParamsAndfindJSON(BaseURL.BASEURL2+"/index.php/Api/signup", urlParameters);
                 return result;
         }
 

@@ -26,6 +26,7 @@ import java.util.Iterator;
 
 import javax.net.ssl.HttpsURLConnection;
 
+import com.tukuri.ics.Config.BaseURL;
 import com.tukuri.ics.R;
 import com.tukuri.ics.AppPreference;
 import com.tukuri.ics.ConnectivityReceiver;
@@ -84,8 +85,7 @@ public class  NewLogin extends AppCompatActivity {
         protected String doInBackground(String... strings) {
 
             try {
-
-                URL url = new URL("https://ihisaab.in/MyTukari/index.php/api/userlogin");
+                URL url = new URL(BaseURL.BASEURL2+"/index.php/api/userlogin");
 
                 JSONObject postDataParams = new JSONObject();
                 postDataParams.put("mobile", EdMobile);
