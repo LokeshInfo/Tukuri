@@ -227,6 +227,9 @@ public class Home_fragment extends Fragment {
                         args.putString("product_id", deals_list.get(position).getProductId());
                         args.putString("category_id", deals_list.get(position).getCategoryId());
                         args.putString("product_image", deals_list.get(position).getProductImage());
+                        args.putString("product_image2", deals_list.get(position).getProductImage());
+                        args.putString("product_image3", deals_list.get(position).getProductImage());
+                        args.putString("product_image4", deals_list.get(position).getProductImage());
                         args.putString("increament", deals_list.get(position).getIncreament());
                         args.putString("product_name", deals_list.get(position).getProductName());
                         args.putString("price", deals_list.get(position).getPrice());
@@ -269,6 +272,9 @@ public class Home_fragment extends Fragment {
                         args.putString("product_id", offer_list.get(position).getProductId());
                         args.putString("category_id", offer_list.get(position).getCategoryId());
                         args.putString("product_image", offer_list.get(position).getProductImage());
+                        args.putString("product_image2", offer_list.get(position).getProductImage());
+                        args.putString("product_image3", offer_list.get(position).getProductImage());
+                        args.putString("product_image4", "");
                         args.putString("increament", offer_list.get(position).getIncreament());
                         args.putString("product_name", offer_list.get(position).getProductName());
                         args.putString("price", offer_list.get(position).getPrice());

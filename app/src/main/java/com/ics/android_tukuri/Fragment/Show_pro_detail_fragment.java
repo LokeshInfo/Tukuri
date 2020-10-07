@@ -21,6 +21,9 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.daimajia.slider.library.Animations.DescriptionAnimation;
+import com.daimajia.slider.library.SliderLayout;
+import com.daimajia.slider.library.SliderTypes.DefaultSliderView;
 import com.ics.android_tukuri.Config.BaseURL;
 import com.ics.android_tukuri.R;
 import com.ics.android_tukuri.DatabaseHandler;
@@ -34,6 +37,7 @@ public class Show_pro_detail_fragment extends Fragment {
     TextView add_to_cart,prod_buy_now,prod_name,tv_prod_price,tv_prod_desc,prod_in_stock, dtx1, dtx2, d1, d2, dd1 ,dd2;;
     ImageView prod_img,iv_special_offer;
     CheckBox ch1, ch2;
+    private SliderLayout imgSlider;
 
     private DatabaseHandler dbcart;
     private Context context;
@@ -43,7 +47,6 @@ public class Show_pro_detail_fragment extends Fragment {
     public Show_pro_detail_fragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -60,6 +63,7 @@ public class Show_pro_detail_fragment extends Fragment {
         ((com.ics.android_tukuri.MainActivity)getActivity()).BackIC();
 
         add_to_cart=view.findViewById(R.id.add_to_cart);
+        imgSlider = view.findViewById(R.id.imageslider);
         prod_img=view.findViewById(R.id.prod_img);
         prod_name=view.findViewById(R.id.prod_name);
         tv_prod_price=view.findViewById(R.id.tv_prod_price);
@@ -78,11 +82,19 @@ public class Show_pro_detail_fragment extends Fragment {
 
         dbcart = new DatabaseHandler(getActivity());
 
+        // initialize a SliderLayout
+        imgSlider.setPresetTransformer(SliderLayout.Transformer.Accordion);
+        imgSlider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
+        imgSlider.setCustomAnimation(new DescriptionAnimation());
+        imgSlider.setDuration(4000);
 
         try {
             map.put("product_id", getArguments().getString("product_id"));
             map.put("category_id", getArguments().getString("category_id"));
             map.put("product_image", getArguments().getString("product_image"));
+            map.put("product_image2", getArguments().getString("product_image2"));
+            map.put("product_image3", getArguments().getString("product_image3"));
+            map.put("product_image4", getArguments().getString("product_image4"));
             map.put("increament", getArguments().getString("increament"));
             map.put("product_name", getArguments().getString("product_name"));
             map.put("price",getArguments().getString("price"));
@@ -101,6 +113,26 @@ public class Show_pro_detail_fragment extends Fragment {
         }catch (Exception e){
 
         }
+
+
+        DefaultSliderView defaultSliderView = new DefaultSliderView(getActivity());
+        if (!map.get("product_image").matches("")){
+            defaultSliderView.image(BaseURL.IMG_PRODUCT_URL+map.get("product_image"));
+            imgSlider.addSlider(defaultSliderView);
+        }
+        if (!map.get("product_image2").matches("")){
+            defaultSliderView.image(BaseURL.IMG_PRODUCT_URL+map.get("product_image2"));
+            imgSlider.addSlider(defaultSliderView);
+        }
+        if (!map.get("product_image3").matches("")){
+            defaultSliderView.image(BaseURL.IMG_PRODUCT_URL+map.get("product_image3"));
+            imgSlider.addSlider(defaultSliderView);
+        }
+        if (!map.get("product_image4").matches("")){
+            defaultSliderView.image(BaseURL.IMG_PRODUCT_URL+map.get("product_image4"));
+            imgSlider.addSlider(defaultSliderView);
+        }
+
 
         prod_name.setText(map.get("product_name"));
         tv_prod_desc.setText("Product Description: "+map.get("Prod_description"));
