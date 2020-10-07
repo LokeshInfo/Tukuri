@@ -7,6 +7,9 @@ public class Product_model {
     String product_name;
     String product_description;
     String product_image;
+    String product_image1;
+    String product_image2;
+    String product_image3;
     String category_id;
     String in_stock;
     String price;
@@ -23,6 +26,17 @@ public class Product_model {
     String price1;
     String price2;
 
+    public String getProduct_image1() {
+        return product_image1;
+    }
+
+    public String getProduct_image2() {
+        return product_image2;
+    }
+
+    public String getProduct_image3() {
+        return product_image3;
+    }
 
     public String getProduct_id() {
         return product_id;

@@ -227,9 +227,9 @@ public class Home_fragment extends Fragment {
                         args.putString("product_id", deals_list.get(position).getProductId());
                         args.putString("category_id", deals_list.get(position).getCategoryId());
                         args.putString("product_image", deals_list.get(position).getProductImage());
-                        args.putString("product_image2", deals_list.get(position).getProductImage());
-                        args.putString("product_image3", deals_list.get(position).getProductImage());
-                        args.putString("product_image4", deals_list.get(position).getProductImage());
+                        args.putString("product_image2", deals_list.get(position).getProduct_image1());
+                        args.putString("product_image3", deals_list.get(position).getProduct_image2());
+                        args.putString("product_image4", deals_list.get(position).getProduct_image3());
                         args.putString("increament", deals_list.get(position).getIncreament());
                         args.putString("product_name", deals_list.get(position).getProductName());
                         args.putString("price", deals_list.get(position).getPrice());
@@ -272,9 +272,9 @@ public class Home_fragment extends Fragment {
                         args.putString("product_id", offer_list.get(position).getProductId());
                         args.putString("category_id", offer_list.get(position).getCategoryId());
                         args.putString("product_image", offer_list.get(position).getProductImage());
-                        args.putString("product_image2", offer_list.get(position).getProductImage());
-                        args.putString("product_image3", offer_list.get(position).getProductImage());
-                        args.putString("product_image4", "");
+                        args.putString("product_image2", offer_list.get(position).getProductImage1());
+                        args.putString("product_image3", offer_list.get(position).getProductImage2());
+                        args.putString("product_image4", offer_list.get(position).getProductImage3());
                         args.putString("increament", offer_list.get(position).getIncreament());
                         args.putString("product_name", offer_list.get(position).getProductName());
                         args.putString("price", offer_list.get(position).getPrice());
@@ -544,6 +544,9 @@ public class Home_fragment extends Fragment {
                         String product_name = c.getString("product_name");
                         String product_description = c.getString("product_description");
                         String product_image = c.getString("product_image");
+                        String product_image1 = c.getString("product_image1");
+                        String product_image2 = c.getString("product_image2");
+                        String product_image3 = c.getString("product_image3");
                         String category_id = c.getString("category_id");
                         String in_stock = c.getString("in_stock");
                         String price = c.getString("price");
@@ -565,7 +568,7 @@ public class Home_fragment extends Fragment {
                         String price1 = c.getString("price1");
                         String price2 = c.getString("price2");
 
-                        offer_list.add(new OfferModel(product_id, product_name, product_description, product_image, category_id, in_stock, price
+                        offer_list.add(new OfferModel(product_id, product_name, product_description, product_image,product_image1,product_image2,product_image3, category_id, in_stock, price
                                 , unit_value, unit, increament, Mrp,
                                 today_deals, offers_cat, deals_description, offers_cat_desc, emi, warranty, pack1 , pack2, mrp1, mrp2, price1, price2));
                     }
@@ -629,6 +632,9 @@ public class Home_fragment extends Fragment {
                         String product_name = c.getString("product_name");
                         String product_description = c.getString("product_description");
                         product_image = c.getString("product_image");
+                       String product_image1 = c.getString("product_image1");
+                        String product_image2 = c.getString("product_image2");
+                        String product_image3 = c.getString("product_image3");
                         String category_id = c.getString("category_id");
                         String in_stock = c.getString("in_stock");
                         String price = c.getString("price");
@@ -650,7 +656,8 @@ public class Home_fragment extends Fragment {
                         String price1 = c.getString("price1");
                         String price2 = c.getString("price2");
 
-                        deals_list.add(new DealsModel(product_id, product_name, product_description, product_image, category_id, in_stock, price
+                        deals_list.add(new DealsModel(product_id, product_name, product_description, product_image,product_image1,product_image2
+                                ,product_image3, category_id, in_stock, price
                                 , unit_value, unit, increament, Mrp, today_deals, offers_cat, deals_description, offers_cat_desc,
                                 emi, warranty, pack1 , pack2, mrp1, mrp2, price1, price2));
                     }

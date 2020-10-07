@@ -7,6 +7,9 @@ public class OfferModel implements Serializable {
     private String productName;
     private String productDescription;
     private String productImage;
+    private String productImage1;
+    private String productImage2;
+    private String productImage3;
     private String categoryId;
     private String inStock;
     private String price;
@@ -28,12 +31,14 @@ public class OfferModel implements Serializable {
     private String price1;
     private String price2;
 
-
-    public OfferModel(String productId, String productName, String productDescription, String productImage, String categoryId, String inStock, String price, String unitValue, String unit, String increament, String mrp, String todayDeals, String offersCat, String dealsDescription, String offersCatDesc, String emi, String warranty, String pack1, String pack2, String mrp1, String mrp2, String price1, String price2) {
+    public OfferModel(String productId, String productName, String productDescription, String productImage, String productImage1, String productImage2, String productImage3, String categoryId, String inStock, String price, String unitValue, String unit, String increament, String mrp, String todayDeals, String offersCat, String dealsDescription, String offersCatDesc, String emi, String warranty, String pack1, String pack2, String mrp1, String mrp2, String price1, String price2) {
         this.productId = productId;
         this.productName = productName;
         this.productDescription = productDescription;
         this.productImage = productImage;
+        this.productImage1 = productImage1;
+        this.productImage2 = productImage2;
+        this.productImage3 = productImage3;
         this.categoryId = categoryId;
         this.inStock = inStock;
         this.price = price;
@@ -53,6 +58,19 @@ public class OfferModel implements Serializable {
         this.mrp2 = mrp2;
         this.price1 = price1;
         this.price2 = price2;
+    }
+
+
+    public String getProductImage1() {
+        return productImage1;
+    }
+
+    public String getProductImage2() {
+        return productImage2;
+    }
+
+    public String getProductImage3() {
+        return productImage3;
     }
 
     public String getProductId() {

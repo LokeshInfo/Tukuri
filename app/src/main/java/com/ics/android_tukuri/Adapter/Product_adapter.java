@@ -195,9 +195,9 @@ public class Product_adapter extends RecyclerView.Adapter<Product_adapter.MyView
                 args.putString("product_id", modelList.get(position).getProduct_id());
                 args.putString("category_id", modelList.get(position).getCategory_id());
                 args.putString("product_image", modelList.get(position).getProduct_image());
-                args.putString("product_image2", modelList.get(position).getProduct_image());
-                args.putString("product_image3", modelList.get(position).getProduct_image());
-                args.putString("product_image4", modelList.get(position).getProduct_image());
+                args.putString("product_image2", modelList.get(position).getProduct_image1());
+                args.putString("product_image3", modelList.get(position).getProduct_image2());
+                args.putString("product_image4", modelList.get(position).getProduct_image3());
                 args.putString("increament", modelList.get(position).getIncreament());
                 args.putString("product_name", modelList.get(position).getProduct_name());
                 args.putString("price", modelList.get(position).getPrice());
@@ -247,9 +247,9 @@ public class Product_adapter extends RecyclerView.Adapter<Product_adapter.MyView
                 args.putString("product_id", modelList.get(position).getProduct_id());
                 args.putString("category_id", modelList.get(position).getCategory_id());
                 args.putString("product_image", modelList.get(position).getProduct_image());
-                args.putString("product_image2", modelList.get(position).getProduct_image());
-                args.putString("product_image3", modelList.get(position).getProduct_image());
-                args.putString("product_image4", modelList.get(position).getProduct_image());
+                args.putString("product_image2", modelList.get(position).getProduct_image1());
+                args.putString("product_image3", modelList.get(position).getProduct_image2());
+                args.putString("product_image4", modelList.get(position).getProduct_image3());
                 args.putString("increament", modelList.get(position).getIncreament());
                 args.putString("product_name", modelList.get(position).getProduct_name());
                 args.putString("price", modelList.get(position).getPrice());

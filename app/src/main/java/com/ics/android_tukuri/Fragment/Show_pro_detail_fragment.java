@@ -23,7 +23,9 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.daimajia.slider.library.Animations.DescriptionAnimation;
 import com.daimajia.slider.library.SliderLayout;
+import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.DefaultSliderView;
+import com.github.chrisbanes.photoview.PhotoView;
 import com.ics.android_tukuri.Config.BaseURL;
 import com.ics.android_tukuri.R;
 import com.ics.android_tukuri.DatabaseHandler;
@@ -32,7 +34,6 @@ import com.ics.android_tukuri.MainActivity;
 import java.util.HashMap;
 
 public class Show_pro_detail_fragment extends Fragment {
-
 
     TextView add_to_cart,prod_buy_now,prod_name,tv_prod_price,tv_prod_desc,prod_in_stock, dtx1, dtx2, d1, d2, dd1 ,dd2;;
     ImageView prod_img,iv_special_offer;
@@ -117,19 +118,39 @@ public class Show_pro_detail_fragment extends Fragment {
 
         DefaultSliderView defaultSliderView = new DefaultSliderView(getActivity());
         if (!map.get("product_image").matches("")){
-            defaultSliderView.image(BaseURL.IMG_PRODUCT_URL+map.get("product_image"));
+            defaultSliderView.image(BaseURL.IMG_PRODUCT_URL+map.get("product_image")).setOnSliderClickListener(new BaseSliderView.OnSliderClickListener() {
+                @Override
+                public void onSliderClick(BaseSliderView slider) {
+                    show_zoom_img(BaseURL.IMG_PRODUCT_URL+map.get("product_image"));
+                }
+            });
             imgSlider.addSlider(defaultSliderView);
         }
         if (!map.get("product_image2").matches("")){
-            defaultSliderView.image(BaseURL.IMG_PRODUCT_URL+map.get("product_image2"));
+            defaultSliderView.image(BaseURL.IMG_PRODUCT_URL+map.get("product_image2")).setOnSliderClickListener(new BaseSliderView.OnSliderClickListener() {
+                @Override
+                public void onSliderClick(BaseSliderView slider) {
+                    show_zoom_img(BaseURL.IMG_PRODUCT_URL+map.get("product_image2"));
+                }
+            });
             imgSlider.addSlider(defaultSliderView);
         }
         if (!map.get("product_image3").matches("")){
-            defaultSliderView.image(BaseURL.IMG_PRODUCT_URL+map.get("product_image3"));
+            defaultSliderView.image(BaseURL.IMG_PRODUCT_URL+map.get("product_image3")).setOnSliderClickListener(new BaseSliderView.OnSliderClickListener() {
+                @Override
+                public void onSliderClick(BaseSliderView slider) {
+                    show_zoom_img(BaseURL.IMG_PRODUCT_URL+map.get("product_image3"));
+                }
+            });
             imgSlider.addSlider(defaultSliderView);
         }
         if (!map.get("product_image4").matches("")){
-            defaultSliderView.image(BaseURL.IMG_PRODUCT_URL+map.get("product_image4"));
+            defaultSliderView.image(BaseURL.IMG_PRODUCT_URL+map.get("product_image4")).setOnSliderClickListener(new BaseSliderView.OnSliderClickListener() {
+                @Override
+                public void onSliderClick(BaseSliderView slider) {
+                    show_zoom_img(BaseURL.IMG_PRODUCT_URL+map.get("product_image4"));
+                }
+            });
             imgSlider.addSlider(defaultSliderView);
         }
 
@@ -390,8 +411,33 @@ public class Show_pro_detail_fragment extends Fragment {
             }
         });
 
-
     }
 
+
+    private void show_zoom_img(String imageurl){
+
+        final Dialog dialog = new Dialog(getActivity());
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.dialog_slider_zoomimage);
+        Window window = dialog.getWindow();
+        window.setLayout(WindowManager.LayoutParams.FILL_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+
+        final ImageView cancel = dialog.findViewById(R.id.ic_close);
+        final PhotoView photoView = dialog.findViewById(R.id.photo_view);
+
+        Glide.with(getActivity())
+                .load(imageurl)
+                .placeholder(getActivity().getResources().getDrawable(R.drawable.app_icon))
+                .into(photoView);
+
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();          }});
+
+        dialog.show();
+        dialog.setCanceledOnTouchOutside(true);
+    }
 
 }
