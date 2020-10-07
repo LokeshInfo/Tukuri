@@ -127,6 +127,7 @@ public class Show_pro_detail_fragment extends Fragment {
             imgSlider.addSlider(defaultSliderView);
         }
         if (!map.get("product_image2").matches("")){
+            defaultSliderView = new DefaultSliderView(getActivity());
             defaultSliderView.image(BaseURL.IMG_PRODUCT_URL+map.get("product_image2")).setOnSliderClickListener(new BaseSliderView.OnSliderClickListener() {
                 @Override
                 public void onSliderClick(BaseSliderView slider) {
@@ -136,6 +137,7 @@ public class Show_pro_detail_fragment extends Fragment {
             imgSlider.addSlider(defaultSliderView);
         }
         if (!map.get("product_image3").matches("")){
+            defaultSliderView = new DefaultSliderView(getActivity());
             defaultSliderView.image(BaseURL.IMG_PRODUCT_URL+map.get("product_image3")).setOnSliderClickListener(new BaseSliderView.OnSliderClickListener() {
                 @Override
                 public void onSliderClick(BaseSliderView slider) {
@@ -145,6 +147,7 @@ public class Show_pro_detail_fragment extends Fragment {
             imgSlider.addSlider(defaultSliderView);
         }
         if (!map.get("product_image4").matches("")){
+            defaultSliderView = new DefaultSliderView(getActivity());
             defaultSliderView.image(BaseURL.IMG_PRODUCT_URL+map.get("product_image4")).setOnSliderClickListener(new BaseSliderView.OnSliderClickListener() {
                 @Override
                 public void onSliderClick(BaseSliderView slider) {
